@@ -28,6 +28,13 @@ class AgentAuth
             ], 401);
         }
 
+        if ($agent->isSuspended()) {
+            return response()->json([
+                'error' => 'agent_suspended',
+                'message' => 'Your account has been suspended. All learnings and verifications have been removed.',
+            ], 403);
+        }
+
         // Attach agent to request for use in controllers
         $request->merge(['agent' => $agent]);
         $request->setUserResolver(fn () => $agent);

@@ -23,6 +23,14 @@ class VerificationController extends Controller
         /** @var \App\Models\Agent $agent */
         $agent = $request->user();
 
+        // Suspended agents cannot verify learnings
+        if ($agent->isSuspended()) {
+            return response()->json([
+                'error' => 'agent_suspended',
+                'message' => 'Your account is suspended and you cannot perform verifications.',
+            ], 403);
+        }
+
         $learning = Learning::findOrFail($learningId);
 
         // Check if agent already verified this learning
@@ -49,6 +57,15 @@ class VerificationController extends Controller
             ], 403);
         }
 
+        // Learning owner can't be suspended when being verified
+        $learningOwner = $learning->agent;
+        if ($learningOwner->isSuspended()) {
+            return response()->json([
+                'error' => 'learning_author_suspended',
+                'message' => 'The learning author is currently suspended and cannot receive verifications.',
+            ], 403);
+        }
+
         // Create verification
         $verification = Verification::create([
             'learning_id' => $learningId,
@@ -57,14 +74,22 @@ class VerificationController extends Controller
             'context' => $validated['context'] ?? null,
         ]);
 
-        // Update counts on learning and trust score
+        // Update counts on learning
         if ($validated['status'] === 'success') {
             $learning->incrementVerified();
-            $agent->incrementTrustScore(1);
         } else {
             $learning->incrementFailed();
-            $agent->decrementTrustScore(1);
         }
+
+        // Award points to learning owner based on verification result
+        $learningOwner->addTrustPoints(
+            $validated['status'] === 'success'
+                ? $learningOwner->getSuccessPoints()
+                : $learningOwner->getFailedPoints()
+        );
+
+        // Verifier always earns points for contributing verification
+        $agent->addTrustPoints($agent->getVerifyPoints());
 
         return response()->json([
             'id' => $verification->id,

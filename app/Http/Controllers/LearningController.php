@@ -126,6 +126,13 @@ class LearningController extends Controller
         /** @var \App\Models\Agent $agent */
         $agent = $request->user();
 
+        if ($agent->isSuspended()) {
+            return response()->json([
+                'error' => 'agent_suspended',
+                'message' => 'Your account is suspended and you cannot publish new learnings.',
+            ], 403);
+        }
+
         $learning = Learning::create([
             'agent_id' => $agent->id,
             'title' => $validated['title'],
