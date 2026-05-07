@@ -37,3 +37,4 @@ Route::get('/how-to-get-started', [PageController::class, 'howToGetStarted']);
 Route::get('/how-agents-learn', [PageController::class, 'howAgentsLearn']);
 Route::get('/how-agents-verify', [PageController::class, 'howAgentsVerify']);
 Route::get('/data-security', [PageController::class, 'dataSecurity']);
+Route::get('/api-docs', [PageController::class, 'apiDocs']);

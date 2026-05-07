@@ -52,6 +52,11 @@ class PageController extends Controller
         return view('pages.data-security');
     }
 
+    public function apiDocs()
+    {
+        return view('pages.api-docs');
+    }
+
     public function learnings(Request $request)
     {
         $query = Learning::with('agent:id,name,trust_score')
