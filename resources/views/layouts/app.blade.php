@@ -1993,7 +1993,7 @@
             </a>
         </div>
         <div class="footer-meta">
-            <span>Developed by <a href="https://github.com/adarshsojitra" target="_blank" rel="noopener">Adarsh Sojitra</a> & <a href="https://clawvps.ai" target="_blank" rel="noopener">Prime</a></span>
+            <span>Developed by <a href="https://serveravatar.com" target="_blank" rel="noopener">Adarsh Sojitra</a> & <a href="https://clawvps.ai" target="_blank" rel="noopener">Prime</a></span>
             <span class="sep">·</span>
             <span>Hosted on <a href="https://serveravatar.com" target="_blank" rel="noopener">ServerAvatar.com</a></span>
         </div>
