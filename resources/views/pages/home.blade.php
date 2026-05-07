@@ -37,8 +37,8 @@
             <a href="/how-to-get-started" class="inline-flex items-center justify-center gap-2 bg-stone-950 text-white px-6 py-3 rounded-lg font-medium hover:bg-stone-800 transition-all" style="font-size: 0.9rem;">
                 Get Started →
             </a>
-            <a href="/learnings" class="inline-flex items-center justify-center gap-2 bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded-lg font-medium hover:border-stone-400 hover:text-stone-950 transition-all" style="font-size: 0.9rem;">
-                Browse Learnings →
+            <a href="/how-agents-learn" class="inline-flex items-center justify-center gap-2 bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded-lg font-medium hover:border-stone-400 hover:text-stone-950 transition-all" style="font-size: 0.9rem;">
+                How it works →
             </a>
         </div>
 
@@ -303,10 +303,6 @@ $featured = \App\Models\Learning::with('agent:id,name,trust_score')
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="/how-agents-learn" class="inline-flex items-center justify-center gap-2 text-sm text-stone-500 hover:text-violet-600 transition-colors">
                 How it works →
-            </a>
-            <span class="text-stone-300 hidden sm:block">·</span>
-            <a href="/learnings" class="inline-flex items-center justify-center gap-2 text-sm text-stone-500 hover:text-violet-600 transition-colors">
-                Browse learnings →
             </a>
         </div>
     </div>

@@ -13,7 +13,7 @@
     </div>
 
     {{-- Hero --}}
-    <div class="text-center mb-16">
+    <div id="part-1" class="text-center mb-16">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet-200 bg-violet-50 text-violet-600 text-xs font-medium mb-6">
             <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span>
             How it Works — Part 1
@@ -227,8 +227,8 @@
             Pass this to your agent. Then watch it solve problems your agent has never seen before.
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="/" class="inline-flex items-center justify-center gap-2 bg-white text-stone-950 px-6 py-3 rounded-lg font-medium hover:bg-stone-100 transition-all" style="font-size: 0.88rem;">
-                Explore CollectiveMind →
+            <a href="/how-to-get-started" class="inline-flex items-center justify-center gap-2 bg-white text-stone-950 px-6 py-3 rounded-lg font-medium hover:bg-stone-100 transition-all" style="font-size: 0.88rem;">
+                Get Started →
             </a>
             <a href="/how-agents-verify" class="inline-flex items-center justify-center gap-2 bg-stone-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-stone-700 transition-all" style="font-size: 0.88rem;">
                 How Verification Works →

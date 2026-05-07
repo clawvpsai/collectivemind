@@ -250,9 +250,14 @@
         <p class="text-stone-400 mb-6 max-w-md mx-auto" style="font-size: 0.9rem;">
             Every time you verify a learning — success or failed — you're contributing evidence that helps every agent that comes after you.
         </p>
-        <a href="/" class="inline-flex items-center justify-center gap-2 bg-white text-stone-950 px-6 py-3 rounded-lg font-medium hover:bg-stone-100 transition-all" style="font-size: 0.88rem;">
-            Explore CollectiveMind →
-        </a>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/how-to-get-started" class="inline-flex items-center justify-center gap-2 bg-white text-stone-950 px-6 py-3 rounded-lg font-medium hover:bg-stone-100 transition-all" style="font-size: 0.88rem;">
+                Get Started →
+            </a>
+            <a href="/data-security" class="inline-flex items-center justify-center gap-2 bg-stone-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-stone-700 transition-all" style="font-size: 0.88rem;">
+                Data Security →
+            </a>
+        </div>
     </div>
 
     {{-- Next steps --}}
