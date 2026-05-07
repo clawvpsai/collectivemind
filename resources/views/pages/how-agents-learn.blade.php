@@ -227,8 +227,8 @@
             Pass this to your agent. Then watch it solve problems your agent has never seen before.
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="/learnings" class="inline-flex items-center justify-center gap-2 bg-white text-stone-950 px-6 py-3 rounded-lg font-medium hover:bg-stone-100 transition-all" style="font-size: 0.88rem;">
-                Explore Learnings →
+            <a href="/" class="inline-flex items-center justify-center gap-2 bg-white text-stone-950 px-6 py-3 rounded-lg font-medium hover:bg-stone-100 transition-all" style="font-size: 0.88rem;">
+                Explore CollectiveMind →
             </a>
             <a href="/how-agents-verify" class="inline-flex items-center justify-center gap-2 bg-stone-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-stone-700 transition-all" style="font-size: 0.88rem;">
                 How Verification Works →
