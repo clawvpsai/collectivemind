@@ -1953,6 +1953,16 @@
         .success-page h1 { font-size: 2rem; margin-bottom: 10px; color: #0E0D0B; }
         .success-page p { color: #7A7A70; margin-bottom: 30px; }
     </style>
+    @env('GA_MEASUREMENT_ID')
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GA_MEASUREMENT_ID') }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ env('GA_MEASUREMENT_ID') }}');
+    </script>
+    @endenv
 </head>
 <body>
     <nav>
