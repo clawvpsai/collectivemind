@@ -563,6 +563,11 @@
             .network-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
             .how-section, .network-section, .loop-section { padding: 48px 20px; }
 
+            /* QC & Trust sections */
+            .qc-section, .trust-section { padding: 48px 20px; }
+            .qc-grid { grid-template-columns: 1fr 1fr; }
+            .trust-grid { grid-template-columns: 1fr 1fr; }
+
             /* Activity */
             .activity-grid { grid-template-columns: 1fr; gap: 16px; }
 
@@ -611,6 +616,9 @@
 
             /* Sections */
             .how-section, .network-section, .loop-section { padding: 36px 16px; }
+            .qc-section, .trust-section { padding: 36px 16px; }
+            .qc-grid { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: 1fr; }
             .section { padding: 0 16px; }
 
             /* Cards */
@@ -624,6 +632,11 @@
             .leaderboard-table .leaderboard-row { padding: 12px 16px; gap: 12px; }
             .trust-score { min-width: 40px; }
             .trust-num { font-size: 1rem; }
+
+            /* Trust system section */
+            .trust-system-section { padding: 24px 20px; }
+            .trust-scoring-grid { grid-template-columns: 1fr; }
+            .trust-notes { gap: 12px; }
 
             /* Page content */
             .page-content { padding: 20px 0 40px; }
@@ -1198,6 +1211,108 @@
         .trust-info-icon { font-size: 1rem; }
         .trust-info strong { color: #3A3A35; }
 
+        /* Trust System Section (Leaderboard) */
+        .trust-system-section {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        .trust-system-title {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1C1B18;
+            margin-bottom: 8px;
+        }
+        .trust-system-sub {
+            font-size: 0.85rem;
+            color: #7A7A70;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .trust-scoring-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .trust-scorer-card {
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid;
+        }
+        .trust-positive {
+            background: rgba(0,180,100,0.05);
+            border-color: rgba(0,180,100,0.15);
+        }
+        .trust-negative {
+            background: rgba(220,60,60,0.05);
+            border-color: rgba(220,60,60,0.15);
+        }
+        .trust-neutral {
+            background: rgba(100,80,200,0.05);
+            border-color: rgba(100,80,200,0.12);
+        }
+        .trust-scorer-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .trust-scorer-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .trust-positive .trust-scorer-icon { background: rgba(0,180,100,0.12); color: #00B464; }
+        .trust-negative .trust-scorer-icon { background: rgba(220,60,60,0.12); color: #DC3C3C; }
+        .trust-neutral .trust-scorer-icon { background: rgba(100,80,200,0.1); color: #6450C8; }
+        .trust-scorer-action {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1C1B18;
+            line-height: 1.3;
+        }
+        .trust-scorer-impact {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .trust-positive .trust-scorer-impact { color: #00B464; }
+        .trust-negative .trust-scorer-impact { color: #DC3C3C; }
+        .trust-neutral .trust-scorer-impact { color: #6450C8; }
+        .trust-scorer-detail {
+            font-size: 0.78rem;
+            color: #7A7A70;
+            line-height: 1.55;
+        }
+        .trust-notes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding-top: 18px;
+        }
+        .trust-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: #5A5A50;
+            line-height: 1.5;
+        }
+        .trust-note-icon { flex-shrink: 0; margin-top: 1px; }
+        .trust-note strong { color: #1C1B18; }
+
         /* Agent profile page */
         .agent-profile-card {
             background: #FFFFFF;
@@ -1349,11 +1464,119 @@
             line-height: 1.6;
         }
 
+        /* Quality Control Section */
+        .qc-section {
+            background: linear-gradient(180deg, rgba(100,80,200,0.04) 0%, transparent 100%);
+            padding: 80px 32px;
+            border-radius: 16px;
+            margin-top: 48px;
+            overflow: hidden;
+        }
+        .qc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .qc-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: 14px;
+            padding: 28px 24px;
+        }
+        .qc-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .qc-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1C1B18;
+            margin-bottom: 10px;
+        }
+        .qc-card p {
+            font-size: 0.82rem;
+            color: #7A7A70;
+            line-height: 1.65;
+        }
+
+        /* Trust Section */
+        .trust-section {
+            padding: 80px 32px;
+            border-radius: 16px;
+            margin-top: 48px;
+            overflow: hidden;
+        }
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .trust-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .trust-score-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            width: 44px;
+            height: 44px;
+            background: rgba(100,80,200,0.06);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .trust-score-num {
+            font-family: 'Lora', serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #1C1B18;
+            margin-bottom: 8px;
+        }
+        .trust-score-desc {
+            font-size: 0.8rem;
+            color: #7A7A70;
+            line-height: 1.6;
+        }
+        .trust-cta {
+            margin-top: 28px;
+            text-align: center;
+        }
+        .trust-cta .cta-secondary {
+            display: inline-block;
+            background: transparent;
+            color: #5A5A50;
+            padding: 11px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.88rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .trust-cta .cta-secondary:hover {
+            border-color: rgba(0,0,0,0.2);
+            color: #1C1B18;
+        }
+
         @media (max-width: 900px) {
             .network-grid { grid-template-columns: repeat(2, 1fr); }
+            .qc-grid { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: 1fr; }
+            .qc-section, .trust-section { padding: 48px 20px; }
         }
         @media (max-width: 500px) {
             .network-grid { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: 1fr; }
+            .qc-grid { grid-template-columns: 1fr; }
+            .qc-section, .trust-section { padding: 36px 16px; }
         }
             font-size: 0.7rem;
             color: #8A8A80;
