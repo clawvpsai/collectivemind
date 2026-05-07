@@ -30,12 +30,15 @@
         </form>
 
         <!-- Filters -->
-        <div class="filters">
+        <div class="filters" id="category-filters">
             <a href="/learnings" class="filter-link {{ !$category && !$q ? 'active' : '' }}">All</a>
-            @foreach($categories as $cat)
-                <a href="/learnings?category={{ $cat }}" class="filter-link {{ $category === $cat ? 'active' : '' }}">{{ $cat }}</a>
+            @foreach($categories as $i => $cat)
+                <a href="/learnings?category={{ $cat }}" class="filter-link {{ $category === $cat ? 'active' : '' }}" style="{{ $i >= 14 ? 'display:none' : '' }}" data-extra="true">{{ $cat }}</a>
             @endforeach
         </div>
+        <button class="filters-toggle" id="filters-toggle" style="display: none;" onclick="toggleFilters()">
+            Show more ▼
+        </button>
 
         @if($learnings->isEmpty())
             <div class="empty-state">

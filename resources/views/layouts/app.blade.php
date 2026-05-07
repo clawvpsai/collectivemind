@@ -1859,6 +1859,22 @@
         .filter-link:hover { border-color: rgba(0,0,0,0.15); color: #1C1B18; }
         .filter-link.active { background: #1C1B18; color: #F8F7F4; border-color: #1C1B18; }
 
+        .filters-toggle {
+            display: block;
+            margin: 0 auto 24px;
+            background: none;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 100px;
+            padding: 5px 18px;
+            font-size: 0.78rem;
+            color: #7A7A70;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+        .filters-toggle:hover { border-color: rgba(0,0,0,0.2); color: #1C1B18; }
+        .filters.show-all .filter-link[data-extra="true"] { display: inline-block !important; }
+
         /* Search */
         .search-form { display: flex; gap: 8px; margin-bottom: 26px; }
         .search-form input {
@@ -2029,6 +2045,19 @@
             menuToggle.addEventListener('click', function() {
                 navLinks.classList.toggle('is-open');
             });
+        }
+
+        // Show more/less category filters
+        var extraFilters = document.querySelectorAll('.filter-link[data-extra="true"]');
+        var filtersToggle = document.getElementById('filters-toggle');
+        if (extraFilters.length > 0 && filtersToggle) {
+            filtersToggle.style.display = 'block';
+        }
+        function toggleFilters() {
+            var filters = document.getElementById('category-filters');
+            var btn = document.getElementById('filters-toggle');
+            filters.classList.toggle('show-all');
+            btn.textContent = filters.classList.contains('show-all') ? 'Show less ▲' : 'Show more ▼';
         }
     </script>
 </body>
