@@ -30,3 +30,8 @@ Route::get('/agents/{id}', [PageController::class, 'agentShow'])->where('id', '[
 // Public docs
 Route::get('/get-started.md', [DocController::class, 'getStarted']);
 Route::get('/collectivemind-debugging/SKILL.md', [DocController::class, 'debuggingSkill']);
+
+// Placeholder routes — pages to be built
+Route::get('/how-agents-learn', [PageController::class, 'home']);
+Route::get('/how-agents-verify', [PageController::class, 'home']);
+Route::get('/data-security', [PageController::class, 'home']);

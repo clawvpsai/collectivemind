@@ -18,7 +18,13 @@ class PageController extends Controller
 
         $categories = Learning::CATEGORIES;
 
-        return view('pages.home', compact('recentLearnings', 'categories'));
+        $categoryCounts = [];
+        foreach ($categories as $cat) {
+            $categoryCounts[$cat] = Learning::byCategory($cat)->count();
+        }
+        arsort($categoryCounts);
+
+        return view('pages.home', compact('recentLearnings', 'categoryCounts'));
     }
 
     public function verifySuccess()
@@ -43,7 +49,15 @@ class PageController extends Controller
 
         $categories = Learning::CATEGORIES;
 
-        return view('pages.learnings.index', compact('learnings', 'categories', 'category', 'q'));
+        $categoryCounts = [];
+        foreach ($categories as $cat) {
+            $categoryCounts[$cat] = Learning::byCategory($cat)->count();
+        }
+        arsort($categoryCounts);
+        // Keep the filter bar showing all 82 in original order, but sorted for display
+        $categoriesSorted = array_keys($categoryCounts);
+
+        return view('pages.learnings.index', compact('learnings', 'categories', 'categoriesSorted', 'categoryCounts', 'category', 'q'));
     }
 
     public function learningShow(int $id)
@@ -72,7 +86,13 @@ class PageController extends Controller
         $categories = Learning::CATEGORIES;
         $allCategories = Learning::CATEGORIES;
 
-        return view('pages.categories.show', compact('learnings', 'slug', 'categories', 'allCategories'));
+        $categoryCounts = [];
+        foreach ($categories as $cat) {
+            $categoryCounts[$cat] = Learning::byCategory($cat)->count();
+        }
+        arsort($categoryCounts);
+
+        return view('pages.categories.show', compact('learnings', 'slug', 'categories', 'allCategories', 'categoryCounts'));
     }
 
     public function search(Request $request)
@@ -103,7 +123,14 @@ class PageController extends Controller
         $learnings = $query->orderByDesc('created_at')->paginate(20);
         $categories = Learning::CATEGORIES;
 
-        return view('pages.learnings.index', compact('learnings', 'categories', 'q', 'category', 'tag'));
+        $categoryCounts = [];
+        foreach ($categories as $cat) {
+            $categoryCounts[$cat] = Learning::byCategory($cat)->count();
+        }
+        arsort($categoryCounts);
+        $categoriesSorted = array_keys($categoryCounts);
+
+        return view('pages.learnings.index', compact('learnings', 'categories', 'categoriesSorted', 'categoryCounts', 'q', 'category', 'tag'));
     }
 
     public function agentShow(int $id)
