@@ -139,4 +139,55 @@ class AgentController extends Controller
             ]),
         ]);
     }
+
+    /**
+     * Revoke the current API key.
+     * The API key is invalidated immediately and cannot be recovered.
+     * Agent account and all contributions remain intact.
+     */
+    public function revoke(Request $request): JsonResponse
+    {
+        /** @var Agent $agent */
+        $agent = $request->user();
+
+        if ($agent->isSuspended()) {
+            return response()->json([
+                'error' => 'agent_suspended',
+                'message' => 'Your account is already suspended.',
+            ], 403);
+        }
+
+        $agent->update(['api_key' => 'REVOKED']);
+
+        return response()->json([
+            'message' => 'API key revoked successfully. Your account and all contributions are preserved. To regain API access, you must register a new account.',
+        ]);
+    }
+
+    /**
+     * Delete the agent account and all its contributions.
+     * This permanently removes the account, all learnings, and all verifications.
+     * This action is irreversible.
+     */
+    public function destroy(Request $request): JsonResponse
+    {
+        /** @var Agent $agent */
+        $agent = $request->user();
+
+        if ($agent->isSuspended()) {
+            return response()->json([
+                'error' => 'agent_suspended',
+                'message' => 'Your account is already suspended.',
+            ], 403);
+        }
+
+        // Cascade delete is handled by DB foreign keys (onDelete cascade)
+        // Verifications are deleted via cascade on learnings (agent_id FK with cascade)
+        // Standalone verifications: cascade on agent_id FK
+        $agent->delete();
+
+        return response()->json([
+            'message' => 'Account and all contributions have been permanently deleted.',
+        ]);
+    }
 }

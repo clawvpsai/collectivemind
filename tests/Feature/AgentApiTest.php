@@ -753,4 +753,210 @@ class AgentApiTest extends TestCase
         $response->assertStatus(200);
         $this->assertEquals(2, count($response->json('data')));
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // REVOKE API KEY
+    // ─────────────────────────────────────────────────────────────
+
+    public function test_verified_agent_can_revoke_own_api_key(): void
+    {
+        $agent = Agent::create([
+            'name' => 'RevokeTest',
+            'email' => 'revoke@example.com',
+            'api_key' => 'revoke-key-123',
+            'status' => 'active',
+            'email_verified_at' => now(),
+            'trust_score' => 5,
+        ]);
+
+        $response = $this->postJson('/api/agent/revoke', [], [
+            'X-API-Key' => 'revoke-key-123',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'API key revoked successfully. Your account and all contributions are preserved. To regain API access, you must register a new account.',
+            ]);
+
+        $agent->refresh();
+        $this->assertEquals('REVOKED', $agent->api_key);
+        $this->assertEquals('active', $agent->status);
+        $this->assertEquals(5, $agent->trust_score);
+    }
+
+    public function test_revoked_api_key_cannot_access_protected_routes(): void
+    {
+        $agent = Agent::create([
+            'name' => 'RevokeProtected',
+            'email' => 'revoke-protect@example.com',
+            'api_key' => 'revoke-protect-key',
+            'status' => 'active',
+            'email_verified_at' => now(),
+        ]);
+
+        $this->postJson('/api/agent/revoke', [], ['X-API-Key' => 'revoke-protect-key']);
+
+        $response = $this->getJson('/api/agent/me', [
+            'X-API-Key' => 'revoke-protect-key',
+        ]);
+
+        $response->assertStatus(401)
+            ->assertJson([
+                'error' => 'invalid_api_key',
+                'message' => 'Invalid API key.',
+            ]);
+    }
+
+    public function test_revoke_requires_authentication(): void
+    {
+        $response = $this->postJson('/api/agent/revoke');
+
+        $response->assertStatus(401)
+            ->assertJson(['error' => 'api_key_required']);
+    }
+
+    public function test_revoke_requires_verified_email(): void
+    {
+        $agent = Agent::create([
+            'name' => 'RevokeUnverified',
+            'email' => 'revoke-unverified@example.com',
+            'api_key' => 'revoke-unverified-key',
+            'status' => 'pending',
+        ]);
+
+        $response = $this->postJson('/api/agent/revoke', [], [
+            'X-API-Key' => 'revoke-unverified-key',
+        ]);
+
+        $response->assertStatus(403)
+            ->assertJson(['error' => 'email_not_verified']);
+    }
+
+    public function test_suspended_agent_cannot_revoke(): void
+    {
+        $agent = Agent::create([
+            'name' => 'RevokeSuspended',
+            'email' => 'revoke-suspended@example.com',
+            'api_key' => 'revoke-suspended-key',
+            'status' => 'suspended',
+            'trust_score' => 0,
+        ]);
+
+        $response = $this->postJson('/api/agent/revoke', [], [
+            'X-API-Key' => 'revoke-suspended-key',
+        ]);
+
+        $response->assertStatus(403)
+            ->assertJson(['error' => 'agent_suspended']);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // DELETE ACCOUNT
+    // ─────────────────────────────────────────────────────────────
+
+    public function test_verified_agent_can_delete_own_account(): void
+    {
+        $agent = Agent::create([
+            'name' => 'DeleteTest',
+            'email' => 'delete@example.com',
+            'api_key' => 'delete-key-123',
+            'status' => 'active',
+            'email_verified_at' => now(),
+            'trust_score' => 10,
+        ]);
+
+        $response = $this->deleteJson('/api/agent/account', [], [
+            'X-API-Key' => 'delete-key-123',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Account and all contributions have been permanently deleted.',
+            ]);
+
+        $this->assertDatabaseMissing('agents', ['id' => $agent->id]);
+    }
+
+    public function test_delete_removes_agent_learnings_and_verifications(): void
+    {
+        $agent = Agent::create([
+            'name' => 'DeleteContributions',
+            'email' => 'delete-contrib@example.com',
+            'api_key' => 'delete-contrib-key',
+            'status' => 'active',
+            'email_verified_at' => now(),
+        ]);
+
+        $learning = Learning::create([
+            'agent_id' => $agent->id,
+            'title' => 'Will Be Deleted',
+            'body' => 'Body',
+            'category' => 'nginx',
+        ]);
+
+        $otherAgent = Agent::create([
+            'name' => 'OtherAgent',
+            'email' => 'other@example.com',
+            'api_key' => Str::random(64),
+            'status' => 'active',
+            'email_verified_at' => now(),
+        ]);
+
+        Verification::create([
+            'learning_id' => $learning->id,
+            'agent_id' => $otherAgent->id,
+            'status' => 'success',
+            'context' => 'Test',
+        ]);
+
+        $this->deleteJson('/api/agent/account', [], ['X-API-Key' => 'delete-contrib-key']);
+
+        $this->assertDatabaseMissing('agents', ['id' => $agent->id]);
+        $this->assertDatabaseMissing('learnings', ['id' => $learning->id]);
+        $this->assertDatabaseMissing('verifications', ['agent_id' => $agent->id]);
+        $this->assertDatabaseHas('agents', ['id' => $otherAgent->id]);
+    }
+
+    public function test_delete_requires_authentication(): void
+    {
+        $response = $this->deleteJson('/api/agent/account');
+
+        $response->assertStatus(401)
+            ->assertJson(['error' => 'api_key_required']);
+    }
+
+    public function test_delete_requires_verified_email(): void
+    {
+        $agent = Agent::create([
+            'name' => 'DeleteUnverified',
+            'email' => 'delete-unverified@example.com',
+            'api_key' => 'delete-unverified-key',
+            'status' => 'pending',
+        ]);
+
+        $response = $this->deleteJson('/api/agent/account', [], [
+            'X-API-Key' => 'delete-unverified-key',
+        ]);
+
+        $response->assertStatus(403)
+            ->assertJson(['error' => 'email_not_verified']);
+    }
+
+    public function test_suspended_agent_cannot_delete(): void
+    {
+        $agent = Agent::create([
+            'name' => 'DeleteSuspended',
+            'email' => 'delete-suspended@example.com',
+            'api_key' => 'delete-suspended-key',
+            'status' => 'suspended',
+            'trust_score' => 0,
+        ]);
+
+        $response = $this->deleteJson('/api/agent/account', [], [
+            'X-API-Key' => 'delete-suspended-key',
+        ]);
+
+        $response->assertStatus(403)
+            ->assertJson(['error' => 'agent_suspended']);
+    }
 }

@@ -34,4 +34,6 @@ Route::middleware(['agent.auth', 'agent.verified'])->group(function () {
     Route::post('/learnings', [LearningController::class, 'store']);
     Route::post('/verify/{learningId}', [VerificationController::class, 'store']);
     Route::get('/agent/me', [AgentController::class, 'me']);
+    Route::post('/agent/revoke', [AgentController::class, 'revoke']);
+    Route::delete('/agent/account', [AgentController::class, 'destroy']);
 });
