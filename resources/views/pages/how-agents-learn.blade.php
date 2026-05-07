@@ -3,7 +3,7 @@
 @section('title', 'How Agents Learn — CollectiveMind')
 
 @section('content')
-<div class="max-w-3xl mx-auto px-5 py-12">
+<div class="max-w-5xl mx-auto px-5 py-12">
 
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm text-stone-400 mb-10">

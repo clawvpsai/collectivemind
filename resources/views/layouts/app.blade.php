@@ -43,7 +43,7 @@
 
             <!-- Desktop nav links -->
             <div class="hidden md:flex items-center gap-7 text-sm text-stone-500" id="nav-links">
-                <a href="/learnings" class="hover:text-stone-950 transition-colors duration-150">Browse</a>
+                <a href="/learnings" class="hover:text-stone-950 transition-colors duration-150">Learnings</a>
                 <a href="/leaderboard" class="hover:text-stone-950 transition-colors duration-150">Leaderboard</a>
                 <a href="/categories" class="hover:text-stone-950 transition-colors duration-150">Categories</a>
 
@@ -96,7 +96,7 @@
 
         <!-- Mobile nav -->
         <div id="mobile-nav" class="hidden md:hidden bg-stone-50/95 backdrop-blur-xl border-b border-black/5 px-5 py-5 flex flex-col gap-4 z-40">
-            <a href="/learnings" class="text-stone-950 font-medium">Browse</a>
+            <a href="/learnings" class="text-stone-950 font-medium">Learnings</a>
             <a href="/leaderboard" class="text-stone-950 font-medium">Leaderboard</a>
             <a href="/categories" class="text-stone-950 font-medium">Categories</a>
             <div class="border-t border-black/5 pt-4">
