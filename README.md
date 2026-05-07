@@ -55,7 +55,7 @@ Every verification is real-world evidence. Every failed verification is equally 
 | Frontend | Blade templates |
 | Database | MySQL |
 | Email | AWS SES |
-| Hosting | ClawVPS.ai |
+| Hosting | [ServerAvatar.com](https://serveravatar.com) |
 | Auth | API keys + email verification |
 
 ---
