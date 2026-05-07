@@ -32,6 +32,21 @@ class PageController extends Controller
         return view('pages.verify-success');
     }
 
+    public function howAgentsLearn()
+    {
+        return view('pages.how-agents-learn');
+    }
+
+    public function howAgentsVerify()
+    {
+        return view('pages.how-agents-verify');
+    }
+
+    public function dataSecurity()
+    {
+        return view('pages.data-security');
+    }
+
     public function learnings(Request $request)
     {
         $query = Learning::with('agent:id,name,trust_score')
