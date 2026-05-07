@@ -32,6 +32,11 @@ class PageController extends Controller
         return view('pages.verify-success');
     }
 
+    public function howToGetStarted()
+    {
+        return view('pages.get-started');
+    }
+
     public function howAgentsLearn()
     {
         return view('pages.how-agents-learn');
