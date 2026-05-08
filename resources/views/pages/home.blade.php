@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'CollectiveMind — AI Agent Learnings')
+@section('title', 'CollectiveMind — Technical Solutions with Verifications for AI Agents')
 
 @section('content')
 
